@@ -1,5 +1,12 @@
 const User=require('../models/User');
 
+module.exports.profile=function(req,res){
+    return res.render('user_profile',{
+        title:'Profile'
+    });
+}
+
+
 module.exports.SignIn=function(req,res){
     return res.render('SignIn',{
         title:'Sign In'
