@@ -3,10 +3,12 @@ const app=express();
 const hostname='127.0.0.1';
 const port=1300;
 const ejsLayouts=require('express-ejs-layouts');
-const passport=require('passport');
-const passportLocal=require('passport-local');
 const cookieParser = require('cookie-parser');
 const db = require('./config/mongoose');
+const session=require('express-session');
+const passport=require('passport');
+const passportLocal=require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo');
 
 
 //setup the ejs-layouts
@@ -15,9 +17,9 @@ app.use(ejsLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-//middleware
+//middleware--> req.body is available because of this
 app.use(express.urlencoded());
-//cookie Parser
+//cookie Parser --> for the cookies
 app.use(cookieParser());
 
 
@@ -28,6 +30,31 @@ app.set('views','./views');
 //access the static files
 app.use(express.static('./assets'));
 
+//MongoStore is usedf to store cookies in the database
+app.use(session({
+    name:'GlobalPay',
+    secret:'Moneytransfer',
+    saveUninitialized: false,
+    resave:false,
+    cookie:{
+        maxAge:(1000 * 60 * 100)
+    },
+    store: MongoStore.create(
+        {
+            mongoUrl:'mongodb://localhost/MoneyTransferApp',
+            autoRemove:'disabled'
+
+        },
+        function(err){
+            console.log(err || 'connect-mongo setup is OK')
+        }
+    )
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+//set user in locals
+app.use(passport.setAuthenticatedUser);
 
 //setup the route
 app.use('/',require('./routes/routes'));
