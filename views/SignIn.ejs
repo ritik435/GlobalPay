@@ -1,0 +1,29 @@
+<div id='sign-in-container'>
+    <div id='sign-in-outline'>
+        <h1>Sign In Page</h1>
+        <form action="/users/create-session" method="POST">
+
+          <p>Phone No.: </p><input type="number" name ="phone" placeholder="Enter Phone no." required>
+          <p>Password: </p><input type="password" name ="password" placeholder="Enter password"required>
+          <button type="submit">Add user</button>
+      </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+)); -->
