@@ -1,16 +1,62 @@
-<div id='sign-in-container'>
-    <div id='sign-in-outline'>
-        <h1>Sign In Page</h1>
-        <form action="/users/create-session" method="POST">
+<link rel="stylesheet" type="text/css" href="/css/signIn.css">
 
-          <p>Phone No.: </p><input type="number" name ="phone" placeholder="Enter Phone no." required>
-          <p>Password: </p><input type="password" name ="password" placeholder="Enter password" required>
-          <button type="submit">Add user</button>
-      </form>
+<div id='sign-in-container' class="overlay">
+  <form action="/users/create-session" method="POST">
+    <div id='sign-in-outline' class="con">
+      <header class="head-form">
+        <h2>Log In</h2>
+        <p>login here using your phone number and password</p>
+      </header>
+
+      <br>
+      <div class="field-set">
+
+          
+          <!--   user name -->
+         
+          <span class="input-item">
+            <i class="fa fa-user-circle"></i>
+          </span>
+          <!--   user name Input-->
+          
+          <input class="form-input" id="txt-input" type="number" name ="phone" placeholder="@phoneNumber" required>
+          <br>
+          
+          <!--   Password -->
+     
+          <span class="input-item">
+            <i class="fa fa-key"></i>
+          </span>
+
+          <!--   Password Input-->
+          <input id="pwd" class="form-input" type="password" name ="password" placeholder="Enter password" required>
+          
+          <!--      Show/hide password  -->
+          <span>
+            <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
+          </span>
+          
+          <br>
+          
+          <!--        buttons -->
+          <!--      button LogIn -->
+          <button class="log-in"> Log In </button>
+        </div>
+        <div class="other">
+         <!--      Forgot Password button-->
+               <button class="btn submits frgt-pass">Forgot Password</button>
+         <!--     Sign Up button -->
+               <a href="/users/sign-up"> <button class="btn submits sign-up">Sign Up </a> 
+         <!--         Sign Up font icon -->
+               <i class="fa fa-user-plus" aria-hidden="true"></i>
+               </button>
+         <!--      End Other the Division -->
+         </div>        
+      </div>
     </div>
-    <a href="/users/sign-up"><button>Sign Up</button></a>
+  </form>
 </div>
 
-
+<script src="/js/signIn.js"></script>
 
 

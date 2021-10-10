@@ -1,0 +1,7 @@
+#passbook table, #passbook tr, #passbook td, #passbook th {
+  border: 1px solid white;
+  border-collapse: collapse;
+  width: 100vw; }
+
+#passbook th, #passbook td {
+  background-color: #96D4D4; }
