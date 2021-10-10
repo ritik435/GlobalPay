@@ -1,15 +1,13 @@
+<%- include('_header') %>
 <div id="home-container">
-    <h1>Counting</h1>
+    <center><h1>Home Page</h1></center>
     <%for(let i=0;i<10;i++){%>
         <%= i+1%>
+        <br>
     <%}%>
-    <% if(!locals.user){%>
-        <a href='/users/sign-in'><button>Sign In</button></a>
-        <a href='/users/sign-up'><button>Sign Up</button></a>
-    <% }else{ %>
-        <a href='/users/sign-out'><button>Sign Out</button></a>
-        <a href='/users/profile'><button>Profile</button></a>
-    <% } %>
+    
+
+    
 </div>
 
 

@@ -1,4 +1,24 @@
-<h1>User Profile</h1>
-<a href='/users/sign-out'><button>Sign Out</button></a>
+<%- include('_header') %>
 
+<div id="user-profile">
+    <center><h1>User Profile</h1></center>
+
+    <% if(locals.user.id != profile_user.id) { %>
+        <h3>Transfer Money</h3>
+        <form id="payment-form" action="/payments/create/<%= profile_user._id%>" method="POST">
+            <input type="number" name="payment" placeholder="Enter value" required>
+            <input type="text" name="content" placeholder="Note">
+            <input type="submit" value="Pay">
+        </form>
+    <% } %>
+    <ul>
+        <h3>Details</h3>
+        <li><%= profile_user.name %></li>
+        <li><%= profile_user.email %></li>
+        <li><%= profile_user.phone %></li>
+        <li><%= profile_user.balance  %> </li>
+
+    </ul>
+          
+</div>
 

@@ -7,7 +7,7 @@ console.log('users route enabled');
 
 router.get('/sign-in',usersController.SignIn);
 router.get('/sign-up',usersController.SignUp);
-router.get('/profile',passport.checkAuthentication,usersController.profile);
+router.get('/profile/:id',passport.checkAuthentication,usersController.profile);
 
 
 router.get('/sign-out',usersController.SignOut);
@@ -19,6 +19,8 @@ router.post('/create-session',
             )
             ,usersController.createSession);
 
+router.get('/passbook',passport.checkAuthentication,usersController.passbook);
+router.get('/view-all-customers',passport.checkAuthentication,usersController.viewAllCus);
 
 
 module.exports=router

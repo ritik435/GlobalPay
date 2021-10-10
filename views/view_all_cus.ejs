@@ -1,0 +1,11 @@
+<%- include('_header') %>
+<div id="view-all-customers">
+    <ul>
+        <h2>View all customers</h2>
+        <%for(user of users){%>
+            <li>
+                <a href="/users/profile/<%= user._id%>"><%= user.name %></a>
+            </li>
+        <% } %>
+    </ul>
+</div>

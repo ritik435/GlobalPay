@@ -1,17 +1,52 @@
 const User=require('../models/User');
+const Payment=require('../models/payment');
+
 
 module.exports.profile=function(req,res){
-    return res.render('user_profile',{
-        title:'User Profile'
-    })
+    User.findById(req.params.id,function(err,user){   
+        return res.render('user_profile',{
+            title:'User Profile',
+            profile_user:user
+        });
+    });
 }
+//passbook
+module.exports.passbook= function(req,res){
+    
+    Payment.find({'user' : req.user.id })
+    .sort('-createdAt')
+    .populate('user')
+    .populate('send_to')
+    .exec(function(err,payment){
+
+        return res.render('passbook',{
+            title:'Passbook',
+            
+            payment:payment
+        });
+    })
+        
+}
+
+module.exports.viewAllCus=function(req,res){
+    User.find({},function(err,user){
+        return res.render('view_all_cus',{
+            title:'View All customers',
+            users : user
+        });
+
+    });
+    
+}
+
+
 
 
 //sign In
 module.exports.SignIn=function(req,res){
     //if user is signIn then dont access /users/sign-in or sign-up
     if (req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/users/profile/req.user.id');
     }
 
     return res.render('SignIn',{
@@ -25,7 +60,7 @@ module.exports.SignIn=function(req,res){
 module.exports.SignUp=function(req,res){
     //if user is signIn then dont access /users/sign-in or sign-up
     if (req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/users/profile/req.user.id');
     }
 
     return res.render('SignUp',{
@@ -43,13 +78,13 @@ module.exports.create=function(req,res){
         return res.redirect('back');
         
     }
-    User.findOne({phone: req.body.phone},function(err,user ){
+    User.findOne({ phone: req.body.phone },function(err,user ){
         if(err){console.log("error in finding user in sign up");return;
                 }
             if(!user){
                 
                 User.create(req.body,function(err,user){
-                    if(err){console.log("error in finding user in sign up");return;
+                    if(err){console.log("error in creating user in sign up");return;
                             }
                 return res.redirect('/users/sign-in');
                 })
