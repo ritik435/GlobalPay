@@ -26,9 +26,6 @@ body {
 .location p {
   display: inline-block; }
 
-.location svg {
-  vertical-align: middle; }
-
 .stats {
   display: flex; }
 

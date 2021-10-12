@@ -6,15 +6,20 @@ module.exports.create=async function(req,res){
 
         let users = await User.findById(req.user._id);
         let send_to_users=await User.findById(req.params.id);
-        if(users && send_to_users){    
+        if(users && send_to_users){ 
+            if(req.body.payment > users.balance){
+                return res.redirect('/');
+            }   
             let payment = await Payment.create({
                 content:req.body.content,
                 user:req.user._id,
                 send_to:req.params.id,
                 payment:req.body.payment
             }); // update in the user who is sending money
-            users.payments.push(payment);
-            send_to_users.payments.push(payment);
+
+            
+            users.payments.unshift(payment);
+            send_to_users.payments.unshift(payment);
             
             users.save();
             send_to_users.save();
