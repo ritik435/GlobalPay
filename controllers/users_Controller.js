@@ -3,28 +3,47 @@ const Payment=require('../models/payment');
 
 
 module.exports.profile=function(req,res){
-    User.findById(req.params.id,function(err,user){   
-        return res.render('user_profile',{
-            title:'User Profile',
-            profile_user:user
-        });
+    User.findById(req.params.id,function(err,user){ 
+        Payment.find({user : req.user._id},function(err,payment){
+            Payment.find({send_to : req.user._id},function(err,payment1){
+                return res.render('user_profile',{
+                    title:'User Profile',
+                    profile_user:user,
+                    payment:payment,
+                    payment1:payment1
+                });
+
+
+            })
+
+        })  
+        
     });
 }
 //passbook
-module.exports.passbook= function(req,res){
+module.exports.passbook= async function(req,res){
     
-    Payment.find({'user' : req.user.id })
-    .sort('-createdAt')
-    .populate('user')
-    .populate('send_to')
-    .exec(function(err,payment){
-
-        return res.render('passbook',{
-            title:'Passbook',
+    let users=await User.findById(req.user._id)
+    .populate({
+        path: 'payments',
+        populate: {
             
-            payment:payment
-        });
+            path: 'user'
+        }
     })
+    .populate({
+        path: 'payments',
+        populate: {
+            path:'send_to'
+            
+        }
+    });
+    return res.render('passbook',{
+        title:'Passbook',
+        user :users
+    })
+
+    
         
 }
 
@@ -90,7 +109,7 @@ module.exports.create=function(req,res){
                 })
             }
             else{
-                return res.redirect('back');
+                return res.redirect('/users/sign-in');
             }
     })
     
@@ -107,6 +126,8 @@ module.exports.createSession = function(req, res){
     // find the user
     User.findOne({phone: req.body.phone}, function(err, user){
         if(err){console.log('error in finding user in signing in'); return}
+
+        
         // handle user found
         if (user){
 

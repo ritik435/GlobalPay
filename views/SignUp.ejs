@@ -1,18 +1,78 @@
-<div id='sign-up-container'>
-    <div id='sign-up-outline'>
-        <h1>Sign Up Page</h1>
-        <form action="/users/create" method="POST">
-            <p>Name: </p><input type="textarea" name="name" placeholder="Enter name" required>
-            <p>Phone No.: </p><input type="number" name="phone" placeholder="Enter Phone No." required>
-            <p>Username: </p><input type="email" name ="email" placeholder="Enter username" required>
-            <p>Password: </p><input type="password" name ="password" placeholder="Enter password"required>
-            <p>Confirm Password: </p><input type="password" name ="confirm_password" placeholder="Confirm password"required>
+<link rel="stylesheet" type="text/css" href="/css/signIn.css">
+<link rel="stylesheet" type="text/css" href="/css/signUp.css">
 
-            <button type="submit">Add user</button>
-        </form>
-    </div>
-    <a href="/users/sign-in"><button>Sign In</button></a>
+<div id='sign-up-container' class='overlay'>
+    <form action="/users/create" method="POST">
+        <div id='sign-up-outline' class='con'>
+            <header class="head-form">
+                <h2>Sign Up</h2>
+                <p>Sign up to create new account</p>
+              </header>
+              <br>
 
+              <div class="field-set">
+                <!-- name -->
+                <span class="input-item">
+                  <i class="fa fa-user-circle"></i>
+                </span>
+                <input class="form-input" id="txt-input" type="textarea" name="name" placeholder="@Name" required>
+                <br>
+                
+                
+                <!-- phone -->
+                <span class="input-item">
+                  <i class="fas fa-phone"></i>
+                </span>
+                
+                <input class="form-input" id="txt-input" type="number" name="phone" placeholder="@PhoneNumber" required>
+                <br>
+                
+                <!-- email -->
+                <span class="input-item">
+                  <i class="far fa-envelope"></i>
+                </span>
+                <input class="form-input" id="txt-input" type="email" name ="email" placeholder="@E-mail" required>
+                <br>
+                
+                <!-- password -->
+                <span class="input-item">
+                  <i class="fas fa-lock"></i>
+                </span>
+                <input class="form-input" id="pwd1" type="password" name ="password" placeholder="@password"required>
+               
+                <br>
+                
+                <!-- confirm password -->
+                <span class="input-item">
+                  <i class="fa fa-key"></i>
+                </span>
+                <input class="form-input" id="pwd" type="password" name ="confirm_password" placeholder="@ConfirmPassword"required>
+                <span>
+                  <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
+                </span>
+                <br>
+                
+                
+                <button > Sign Up </button> 
+              </div>      
+              <div class="other">
+                <!--      Forgot Password button-->
+                <button class="btn submits frgt-pass"><a href="/users/sign-in">Forgot Password</a></button>
+                <!--     Sign Up button -->
+                 <button class="btn submits sign-up"><a href="/users/sign-in">Log In </a> 
+                  <!--         Sign Up font icon -->
+                  <i class="far fa-user" aria-hidden="true"></i>
+                </button>
+                <!--      End Other the Division -->
+              </div>  
+              
+        </div>
+    </form>
 </div>
+
+
+
+<script src="/js/signIn.js"></script>
+
 
 

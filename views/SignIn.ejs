@@ -2,20 +2,20 @@
 
 <div id='sign-in-container' class="overlay">
   <form action="/users/create-session" method="POST">
-    <div id='sign-in-outline' class="con">
+  <div id='sign-in-outline' class="con">
       <header class="head-form">
         <h2>Log In</h2>
         <p>login here using your phone number and password</p>
       </header>
-
-      <br>
-      <div class="field-set">
+    
+    <br>
+    <div class="field-set">
 
           
           <!--   user name -->
          
           <span class="input-item">
-            <i class="fa fa-user-circle"></i>
+            <i class="fas fa-phone"></i>
           </span>
           <!--   user name Input-->
           
@@ -40,23 +40,31 @@
           
           <!--        buttons -->
           <!--      button LogIn -->
-          <button class="log-in"> Log In </button>
+          <button type="submit">Log In</button>
         </div>
         <div class="other">
-         <!--      Forgot Password button-->
-               <button class="btn submits frgt-pass">Forgot Password</button>
-         <!--     Sign Up button -->
-               <a href="/users/sign-up"> <button class="btn submits sign-up">Sign Up </a> 
-         <!--         Sign Up font icon -->
-               <i class="fa fa-user-plus" aria-hidden="true"></i>
-               </button>
-         <!--      End Other the Division -->
-         </div>        
+          <!--      Forgot Password button-->
+          <button class="btn submits frgt-pass"><a href="/users/sign-up">Forgot Password</a></button>
+          <!--     Sign Up button -->
+          <button class="btn submits sign-up"><a href="/users/sign-up">Sign Up </a>
+            <!--         Sign Up font icon -->
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+          </button>
+        
+          <!--      End Other the Division -->
+        </div>        
       </div>
-    </div>
-  </form>
+      
+    </form>
 </div>
 
 <script src="/js/signIn.js"></script>
+
+<script type="text/javascript">
+  window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
+</script>
 
 

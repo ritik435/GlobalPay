@@ -12,31 +12,33 @@
         <tr>
             <th>My A/C</th>
             <th>Sender A/C</th>
-            <th>Debit or Credit</th>
+            <th>Credit</th>
+            <th>Debit</th>
             <th>Note</th>
-            <th>Balance</th>
         </tr>
-        <%for(pay of payment) {%>
+        <%for(pay of user.payments) {%>
             <tr >
                 <td>
-                    <%= pay.user.phone%>
+                    <%= pay.user.phone %>
                 </td>
                 <td>
                     <b><%= pay.send_to.phone%></b>
                 </td>
+                <% if(locals.user.id == pay.user._id ){ %>
+                        <td>
+                            - <%= pay.payment%>
+                        </td>
+                        <td></td>
+                <% } else { %>
+                        
+                    <td></td>
+                    <td>
+                            + <%= pay.payment%>
+                        </td>
+                <% } %>
+                        
                 <td>
-                    <% if(locals.user.id == pay.user._id ){ %>
-                        + <%= pay.payment%>
-                    <% } else { %>
-                        - <%= pay.payment%>
-                    <% } %>
-                            
-                </td>
-                <td>
-                    <%= pay.note %>
-                </td>
-                <td>
-                    <%= pay.user.balance %>
+                    <%= pay.content %>
                 </td>
             </tr>
         <% } %>    

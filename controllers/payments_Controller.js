@@ -2,63 +2,52 @@ const Payment=require('../models/payment');
 const User = require('../models/User');
 
 module.exports.create=async function(req,res){
-    Payment.create({
-        content:req.body.content,
-        user:req.user._id,
-        send_to:req.params.id,
-        payment:req.body.payment
-    },function(err , payment){ // update in the user eho is sending money
-        
-        
-        let balance_user=parseInt(req.user.balance) - parseInt(req.body.payment);
-        
-        User.findByIdAndUpdate(payment.user,{
-            balance: balance_user
-        },function(err,user){
-            if(err){console.log('error in creating a payment'); return;}
+    try{
+
+        let users = await User.findById(req.user._id);
+        let send_to_users=await User.findById(req.params.id);
+        if(users && send_to_users){    
+            let payment = await Payment.create({
+                content:req.body.content,
+                user:req.user._id,
+                send_to:req.params.id,
+                payment:req.body.payment
+            }); // update in the user who is sending money
+            users.payments.push(payment);
+            send_to_users.payments.push(payment);
             
-            if(err){
-                console.log(`error in payment ${err}`);
-                return;
-            }
+            users.save();
+            send_to_users.save();
+            
+            let balance_user=parseInt(req.user.balance) - parseInt(req.body.payment);
+        
+        let user=await User.findByIdAndUpdate(payment.user,{
+            balance: balance_user
         });
         
         
         
-        User.findById(payment.send_to,function(err,send_to){
-            if(err){console.log('error in creating a payment '); return;}
-            let balance_send_to=parseInt(send_to.balance) + parseInt(req.body.payment);
-            send_to.balance=balance_send_to;
-
-            send_to.save(function (err) {
-                if(err) {
-                    console.error('ERROR!');
-                }
-            });
-            
-            // console.log(`Updated balance  :${user.balance} name:${user.name}` );
-                if(err) {
-                    console.log(`Error in send_to user ${err}`); return;
-                }
-                // console.log(`payment.send_to.balance : ${send_to.balance}`)
-                return res.redirect('/users/view-all-customers');
-
-            })
-        }); 
-        // });
-    // });
+        
+        
+        let send_to= await User.findById(payment.send_to);
+        let balance_send_to=parseInt(send_to.balance) + parseInt(req.body.payment);
+        send_to.balance=balance_send_to;
+        
+        send_to.save(function (err) {
+            if(err) {
+                console.error('ERROR!');
+            }
+        });
+        
+        
+        return res.redirect('/users/view-all-customers');
+        
+        
+    }      
+    
+}catch(err){
+    console.log(`Error in payment ${err}`);
+    return;
+}
 }
 
-// User.findByIdAndUpdate(req.params.id,{
-//     balance: req.body.payment 
-// },function(err,user){
-//     console.log(user.balance);
-//     console.log(req.body.payment);
-
-//     if(err){
-//         console.log(`error in payment ${err}`);
-//         return;
-//     }
-//     console.log(`Updated balance  :${user.balance} name:${user.name}` );
-//     return res.redirect('back');
-// });
