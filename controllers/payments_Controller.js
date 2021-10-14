@@ -8,6 +8,8 @@ module.exports.create=async function(req,res){
         let send_to_users=await User.findById(req.params.id);
         if(users && send_to_users){ 
             if(req.body.payment > users.balance){
+                console.log('Insufficient Balance');
+                req.flash('success', 'Insufficient Balance');
                 return res.redirect('/');
             }   
             let payment = await Payment.create({
@@ -17,7 +19,6 @@ module.exports.create=async function(req,res){
                 payment:req.body.payment
             }); // update in the user who is sending money
 
-            
             users.payments.unshift(payment);
             send_to_users.payments.unshift(payment);
             
@@ -44,7 +45,8 @@ module.exports.create=async function(req,res){
             }
         });
         
-        
+        req.flash('success', 'Payment created !');
+
         return res.redirect('/users/view-all-customers');
         
         

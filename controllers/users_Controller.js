@@ -29,15 +29,18 @@ module.exports.resetPassword=function(req,res){
 
 module.exports.reset=function(req,res){
     if(req.body.password != req.body.confirm_password){
+        req.flash('success', 'Reset password again');
         return res.redirect('back');
     }
     let user=User.find({phone:req.body.phone});
     if(user){
         User.findOneAndUpdate({phone:req.body.phone} ,{password :req.body.password},function(err,users){
+            req.flash('success', 'Password has been reset');
             return res.redirect('/users/sign-in')
     
         });
     }else{
+        req.flash('success', 'No user found');
         return res.redirect('/users/sign-up');
     }
     
@@ -129,12 +132,17 @@ module.exports.create=function(req,res){
             if(!user){
                 
                 User.create(req.body,function(err,user){
-                    if(err){console.log("error in creating user in sign up");return;
-                            }
-                return res.redirect('/users/sign-in');
-                })
+                    if(err){
+                        console.log("error in creating user in sign up");
+                        req.flash('error', 'Error');
+                        return;
+                        }
+                            req.flash('success', 'You have signed up, login to continue!');
+                            return res.redirect('/users/sign-in');
+                });
             }
             else{
+                req.flash('success', 'User is already sign up');
                 return res.redirect('/users/sign-in');
             }
     })
@@ -151,7 +159,9 @@ module.exports.createSession = function(req, res){
     // steps to authenticate
     // find the user
     User.findOne({phone: req.body.phone}, function(err, user){
-        if(err){console.log('error in finding user in signing in'); return}
+        if(err){console.log('error in finding user in signing in'); 
+            req.flash('error', 'ERROR!');
+        return;}
 
         
         // handle user found
@@ -159,27 +169,24 @@ module.exports.createSession = function(req, res){
 
             // handle password which doesn't match
             if (user.password != req.body.password){
+                req.flash('success', 'Invalid username/password');
                 return res.redirect('back');
             }
 
             // handle session creation
             res.cookie('user_id', user.id);
+            req.flash('success', 'You have Logged in');
             return res.redirect('/');
 
         }else{
             // handle user not found
-
+            req.flash('success', 'No user present');
             return res.redirect('back');
         }
 
 
     });
-
- 
-
-    
-
-    
+       
 }
 
 
@@ -187,5 +194,6 @@ module.exports.createSession = function(req, res){
 module.exports.SignOut=function(req,res){
 
     req.logout();
+    req.flash('success', 'You have signed out');
     return res.redirect('/users/sign-in');
 }
