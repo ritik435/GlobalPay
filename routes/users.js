@@ -21,6 +21,9 @@ router.post('/create-session',
 
 router.get('/passbook',passport.checkAuthentication,usersController.passbook);
 router.get('/view-all-customers',passport.checkAuthentication,usersController.viewAllCus);
+router.get('/reset-password',usersController.resetPassword);
+router.post('/reset-password/reset',usersController.reset);
+
 
 
 module.exports=router

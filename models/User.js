@@ -25,6 +25,9 @@ const userSchema= new mongoose.Schema({
         default: 0
         
     },
+    bio:{
+        type:String
+    },
     payments:[
         {
             type:mongoose.Schema.Types.ObjectId,

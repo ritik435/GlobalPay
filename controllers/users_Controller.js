@@ -20,6 +20,32 @@ module.exports.profile=function(req,res){
         
     });
 }
+//reset Password
+module.exports.resetPassword=function(req,res){
+    return res.render('resetPass',{
+        title:'Reset Password'
+    });
+}
+
+module.exports.reset=function(req,res){
+    if(req.body.password != req.body.confirm_password){
+        return res.redirect('back');
+    }
+    let user=User.find({phone:req.body.phone});
+    if(user){
+        User.findOneAndUpdate({phone:req.body.phone} ,{password :req.body.password},function(err,users){
+            return res.redirect('/users/sign-in')
+    
+        });
+    }else{
+        return res.redirect('/users/sign-up');
+    }
+    
+} 
+
+
+
+
 //passbook
 module.exports.passbook= async function(req,res){
     
