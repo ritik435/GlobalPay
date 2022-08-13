@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/resetPass.css">
+
+
+    <div class="user">
+        <header class="user__header">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
+            <h1 class="user__title">Reset Password Form</h1>
+        </header>
+        
+        <form class="form" action="/users/reset-password/reset" method="POST">
+            <div class="form__group">
+                <input class="form__input" type='number' name="phone" placeholder="Phone Number"/>
+            </div>
+            
+            <div class="form__group">
+                <input class="form__input" type='email' name="email" placeholder="Email Id"/>
+                </div>
+            
+            <div class="form__group">
+                <input class="form__input" type='password' name="password" placeholder="Password"/>
+            </div>
+            <div class="form__group">
+                <input class="form__input" type='password' name="confirm_password" placeholder="Confirm Password"/>
+            </div>
+            
+            <button class="btn">Register</button>
+        </form>
+    </div>
+
+
+
+<script src="/js/resetPass.js"></script>

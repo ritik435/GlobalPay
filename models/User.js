@@ -22,9 +22,18 @@ const userSchema= new mongoose.Schema({
     },
     balance :{
         type:Number,
-        default: 0
+        default: 200000
         
-    }
+    },
+    bio:{
+        type:String
+    },
+    payments:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Payment'
+        }
+    ]
     
     
 },{

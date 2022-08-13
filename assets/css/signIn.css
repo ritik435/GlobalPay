@@ -30,40 +30,37 @@ form {
   height: auto;
   border-radius: 5px;
   margin: 2% auto;
-  box-shadow: 0 9px 50px rgba(234, 177, 149, 0.31);
+  box-shadow: 0 9px 50px;
   padding: 2%;
-  background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%); }
-
-/* form Container */
-form .con {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: 0 auto; }
+  background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+  /* form Container */ }
+  form .con {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 auto; }
 
 /* the header form form */
 header {
   margin: 2% auto 10% auto;
-  text-align: center; }
-
-/* Login title form form */
-header h2 {
-  font-size: 250%;
-  font-family: 'Playfair Display', serif;
-  color: #3e403f; }
-
-/*  A welcome message or an explanation of the login form */
-header p {
-  letter-spacing: 0.05em; }
+  text-align: center;
+  /* Login title form form */
+  /*  A welcome message or an explanation of the login form */ }
+  header h2 {
+    font-size: 250%;
+    font-family: 'Playfair Display', serif;
+    color: #3e403f; }
+  header p {
+    letter-spacing: 0.05em; }
 
 /* //////////////////////////////////////////// */
 /* //////////////////////////////////////////// */
 .input-item {
   background: #fff;
-  color: #333;
+  color: #503737;
   padding: 14.5px 0px 15px 9px;
   border-radius: 5px 0px 0px 5px; }
 
@@ -153,3 +150,13 @@ button:hover {
     transform: translateY(3px); }
   100% {
     transform: translateY(5px); } }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; }
+
+a {
+  text-decoration: none; }

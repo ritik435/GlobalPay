@@ -1,24 +1,60 @@
 <%- include('_header') %>
+<link rel="stylesheet" type="text/css" href="/css/profile.css">
+
 
 <div id="user-profile">
-    <center><h1>User Profile</h1></center>
+    <!-- <center><h1>User Profile</h1></center> -->
 
-    <% if(locals.user.id != profile_user.id) { %>
-        <h3>Transfer Money</h3>
-        <form id="payment-form" action="/payments/create/<%= profile_user._id%>" method="POST">
-            <input type="number" name="payment" placeholder="Enter value" required>
-            <input type="text" name="content" placeholder="Note">
-            <input type="submit" value="Pay">
-        </form>
-    <% } %>
-    <ul>
-        <h3>Details</h3>
-        <li><%= profile_user.name %></li>
-        <li><%= profile_user.email %></li>
-        <li><%= profile_user.phone %></li>
-        <li><%= profile_user.balance  %> </li>
+    
+    <section class="profile">
+        <header class="header">
+          <div class="details">
+            <img src="/images/profile.jpg" alt="Profile pic" class="profile-pic">
+            <h1 class="heading"><%= profile_user.name%></h1>
+            <div class="location">
+                <i class="fas fa-mailbox"></i>
+                <p><%= profile_user.email%></p><br>
+                <i class="fas fa-phone-square-alt"></i>
+                <p><%= profile_user.phone%></p><br>
+                <p><%= profile_user.bio%></p><br>
 
-    </ul>
+
+            </div>
+            <% if(locals.user.id == profile_user.id) { %>
+                <div class="stats">
+                    <div class="col-4">
+                        <h4><%= profile_user.balance%></h4>
+                        <p>Balance</p>
+                    </div>
+                    <div class="col-4">
+                        <%var count_sent=0;%>
+                        <%for(pay of payment){%>
+                            <%count_sent+=pay.payment%>
+                        <%}%> 
+                        <h4><%= count_sent%></h4>
+                        <p>Total Spend</p>
+                </div>
+                <div class="col-4">
+                    <%var count_received=0;%>
+                        <%for(pay of payment1){%>
+                            <%count_received+=pay.payment%>
+                        <%}%> 
+                    <h4><%= count_received %></h4>
+                    <p>Total earned</p>
+                </div>
+                </div>
+                <% } %>
+          </div>
+        </header>
+        <% if(locals.user.id != profile_user.id) { %>
+            <h3>Transfer Money</h3>
+            <form id="payment-form" action="/payments/create/<%= profile_user._id%>" method="POST">
+                <input type="number" name="payment" placeholder="Enter value" required>
+                <input type="text" name="content" placeholder="Note">
+                <input type="submit" value="Pay">
+            </form>
+        <% } %>
+      </section>
           
 </div>
 
