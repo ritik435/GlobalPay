@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMiddleware = require('./config/flashMiddleware');
+require('dotenv').config()
 
 
 
@@ -56,7 +57,7 @@ app.use(session({
     },
     store: MongoStore.create(
         {
-            mongoUrl: 'mongodb://localhost/MoneyTransferApp',
+            mongoUrl: process.env.URL,
             autoRemove: 'disabled'
 
         },
@@ -65,6 +66,9 @@ app.use(session({
         }
     )
 }));
+
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());
